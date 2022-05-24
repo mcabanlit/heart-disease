@@ -12,7 +12,7 @@ model = pickle.load(open('heart_disease_random_forest_model.pkl', 'rb'))
 app = Flask(__name__)
 
 def welcome():
-    choose_onboarding = actions('Heart Disease 🚖', ['Login', 'Signup'],
+    choose_onboarding = actions('Heart Disease 🫀🍑', ['Login', 'Signup'],
                                 help_text='Choose one of the options to proceed.')
 
     if choose_onboarding == 'Login':
