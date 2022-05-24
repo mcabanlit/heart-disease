@@ -1,4 +1,8 @@
 pywebio
 cowpy==1.0.3
 Flask
-numpy
+numpy==1.22.4
+matplotlib
+scikit-learn==1.1.1
+scipy==1.8.1
+sklearn==0.0

@@ -12,15 +12,15 @@ model = pickle.load(open('heart_disease_random_forest_model.pkl', 'rb'))
 app = Flask(__name__)
 
 def welcome():
-    choose_onboarding = actions('Welcome to Car Booking App 🚖', ['Login', 'Signup'],
+    choose_onboarding = actions('Heart Disease 🚖', ['Login', 'Signup'],
                                 help_text='Choose one of the options to proceed.')
 
     if choose_onboarding == 'Login':
-        login()
+        pass
     else:
-        signup()
+        pass
         
-        
+
 app.add_url_rule('/tool', 'webio_view', webio_view(welcome),
             methods=['GET', 'POST', 'OPTIONS'])
 
