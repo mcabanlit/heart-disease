@@ -87,25 +87,46 @@ def predict():
             else:
                 fbs = 0
 
-            user_data = [[age, sex, cp, trestbps, chol, fbs, 1, 164, 1, 0.0, 2, 0, 2]]
+            resting_ecg = radio("Resting electrocardiographic results:", options=['Normal', 'ST-T wave normality', 'Left ventricular hypertrophy'], required=True)
+            if resting_ecg == 'Normal':
+                restecg = 0
+            elif resting_ecg == 'ST-T wave normality':
+                restecg = 1
+            else:
+                restecg = 2
+
+
+            thalach = input("Maximum heart rate achieved:", type=NUMBER, required=True)
+            exercise_angina = radio("Exercise induced Angina", options=['Yes', 'No'], required=True)
+            if exercise_angina == 'Yes':
+                exang = 1
+            else:
+                exang = 0
+
+            oldpeak = input("Previous peak:", type=FLOAT, required=True)
+            slope = input("Slope of Peak Exercise ST segment:", type=NUMBER, required=True)
+            ca = input("Number of major vessels:", type=NUMBER, required=True)
+            thal = input("Thalium Stress Test result", type=NUMBER, required=True)
+            user_data = [[age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal]]
             df = pd.DataFrame(user_data, columns=["age", "sex", "cp", "trestbps",
                                        "chol", "fbs", "restecg", "thalach",
                                        "exang", "oldpeak", "slope", "ca", "thal"])
-            has_diabetes = model.predict(df)
+            has_heart_disease = model.predict(df)
             # has_diabetes = model.predict([[age, 1, 0, 125, 212, 0, 1, 169, 0, 1.5, 2, 2, 3]])
 
-            if has_diabetes == 1:
+            if has_heart_disease == 1:
                 verdict = "Has Heart Disease"
-            elif has_diabetes == 0:
+            elif has_heart_disease == 0:
                 verdict = "No Heart Disease"
             else:
                 verdict = "Wowers"
 
             popup(verdict, [
-                put_html('<h3>Popup Content</h3>'),
-                'html: <br/>',
-                put_table([['A', 'B'], ['C', 'D']]),
-                put_buttons(['close_popup()'], onclick=lambda _: close_popup())
+                put_html('<h4>Details</h4>'),
+                put_text('Age: ' + str(age)),
+                # 'html: <br/>',
+                # put_table([['A', 'B'], ['C', 'D']]),
+                put_buttons(['Close Results'], onclick=lambda _: close_popup())
             ])
 
     predict()
