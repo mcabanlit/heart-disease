@@ -10,6 +10,7 @@ import pickle
 import numpy as np
 import webbrowser
 from pywebio import STATIC_PATH
+import pandas as pd
 
 model = pickle.load(open('heart_disease_random_forest_model.pkl', 'rb'))
 app = Flask(__name__)
@@ -20,7 +21,7 @@ def edit():
 def delete():
     put_text("You click delete button")
 
-def welcome():
+def predict():
     """
     Heart Disease Prediction
 
@@ -34,7 +35,8 @@ def welcome():
     # img = open('\\assets\\heart-disease-banner.png', 'rb').read()
     # put_image(img)
     img = open('assets/heart-disease-banner.png', 'rb').read()
-    put_image(img)
+    with use_scope('scope1', clear=True):
+        put_image(img)
     # put_image("assets\heat-disease-banner.png")
     put_text("")
     # The width ratio of the left and right code blocks is 2:3, which is equivalent to size='2fr 10px 3fr'
@@ -53,15 +55,41 @@ def welcome():
     #     pass
     # put_link('Github', "https://github.com/mcabanlit/heart-disease")
     # welcome()
-    start = radio("Would you like to start prediction?", options=['Yes', 'No'], required=True)
+    from pywebio import start_server
+
+    start = actions('Would you like to start prediction? Still on development mode.', ['Yes', 'No'], help_text='')
+    # start = radio("Would you like to start prediction?", options=['Yes', 'No'], required=True)
     if start=='Yes':
-        accept = radio("Do you consent the processing of your data?", options=['Yes', 'No'], required=True)
+        accept = actions('Do you consent the processing of your data?', ['Yes', 'No'],
+                         help_text='We will be processing your. \n 1. Age')
         if accept=='Yes':
             age = input("Enter the age of the patient:", type=NUMBER, required=True)
             sex = radio("Gender", options=['Male', 'Female'], required=True)
 
+            user_data = [[age, 1, 1, 140, 221, 0, 1, 164, 1, 0.0, 2, 0, 2]]
+            df = pd.DataFrame(user_data, columns=["age", "sex", "cp", "trestbps",
+                                       "chol", "fbs", "restecg", "thalach",
+                                       "exang", "oldpeak", "slope", "ca", "thal"])
+            has_diabetes = model.predict(df)
+            # has_diabetes = model.predict([[age, 1, 0, 125, 212, 0, 1, 169, 0, 1.5, 2, 2, 3]])
 
-app.add_url_rule('/tool', 'webio_view', webio_view(welcome),
+            if has_diabetes == 1:
+                verdict = "Has Heart Disease"
+            elif has_diabetes == 0:
+                verdict = "No Heart Disease"
+            else:
+                verdict = "Wowers"
+
+            popup(verdict, [
+                put_html('<h3>Popup Content</h3>'),
+                'html: <br/>',
+                put_table([['A', 'B'], ['C', 'D']]),
+                put_buttons(['close_popup()'], onclick=lambda _: close_popup())
+            ])
+
+    predict()
+
+app.add_url_rule('/tool', 'webio_view', webio_view(predict),
                  methods=['GET', 'POST', 'OPTIONS'])
 
 
@@ -70,4 +98,4 @@ if __name__ == '__main__':
     parser.add_argument("-p", "--port", type=int, default=8080)
     args = parser.parse_args()
 
-    start_server(welcome, port=args.port)
+    start_server(predict, port=args.port)
