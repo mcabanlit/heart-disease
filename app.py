@@ -63,10 +63,31 @@ def predict():
         accept = actions('Do you consent the processing of your data?', ['Yes', 'No'],
                          help_text='We will be processing your. \n 1. Age')
         if accept=='Yes':
-            age = input("Enter the age of the patient:", type=NUMBER, required=True)
-            sex = radio("Gender", options=['Male', 'Female'], required=True)
+            age = input("Age of the patient:", type=NUMBER, required=True)
+            gender = radio("Gender", options=['Male', 'Female'], required=True)
+            if gender == 'Male':
+                sex = 1
+            else:
+                sex = 0
+            chest_pain = radio("Chest Pain Type", options=['Typical Angina', 'Atypical Angina', 'Non-anginal Pain', 'Asymptomatic'], required=True)
+            if chest_pain == 'Typical Angina':
+                cp = 0
+            elif chest_pain == 'Atypical Angina':
+                cp = 1
+            elif chest_pain == 'Non-anginal Pain':
+                cp = 3
+            else:
+                cp = 4
 
-            user_data = [[age, 1, 1, 140, 221, 0, 1, 164, 1, 0.0, 2, 0, 2]]
+            trestbps = input("Resting Blood Pressure (in mm Hg):", type=NUMBER, required=True)
+            chol= input("Cholesterol fetched via BMI sensor (in mg/dl):", type=NUMBER, required=True)
+            fasting_blood = input("Fasting blood sugar (in mg/dl)", type=NUMBER, required=True)
+            if fasting_blood > 120:
+                fbs = 1
+            else:
+                fbs = 0
+
+            user_data = [[age, sex, cp, trestbps, chol, fbs, 1, 164, 1, 0.0, 2, 0, 2]]
             df = pd.DataFrame(user_data, columns=["age", "sex", "cp", "trestbps",
                                        "chol", "fbs", "restecg", "thalach",
                                        "exang", "oldpeak", "slope", "ca", "thal"])
