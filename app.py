@@ -79,9 +79,9 @@ def predict():
             else:
                 cp = 4
 
-            trestbps = input("Resting Blood Pressure (in mm Hg):", type=NUMBER, required=True)
-            chol= input("Cholesterol fetched via BMI sensor (in mg/dl):", type=NUMBER, required=True)
-            fasting_blood = input("Fasting blood sugar (in mg/dl)", type=NUMBER, required=True)
+            trestbps = input("Resting Blood Pressure (in mm Hg):", type=NUMBER, required=True, placeholder="94-200")
+            chol= input("Cholesterol fetched via BMI sensor (in mg/dl):", type=NUMBER, required=True, placeholder="126-564")
+            fasting_blood = input("Fasting blood sugar (in mg/dl)", type=NUMBER, required=True, placeholder="120")
             if fasting_blood > 120:
                 fbs = 1
             else:
@@ -96,17 +96,26 @@ def predict():
                 restecg = 2
 
 
-            thalach = input("Maximum heart rate achieved:", type=NUMBER, required=True)
+            thalach = input("Maximum heart rate achieved:", type=NUMBER, required=True, placeholder="71-202")
             exercise_angina = radio("Exercise induced Angina", options=['Yes', 'No'], required=True)
             if exercise_angina == 'Yes':
                 exang = 1
             else:
                 exang = 0
 
-            oldpeak = input("Previous peak:", type=FLOAT, required=True)
-            slope = input("Slope of Peak Exercise ST segment:", type=NUMBER, required=True)
-            ca = input("Number of major vessels:", type=NUMBER, required=True)
-            thal = input("Thalium Stress Test result", type=NUMBER, required=True)
+            oldpeak = input("ST depression induced by exercise relative to rest (Previous peak):", type=FLOAT, required=True, placeholder="0.0 - 6.2")
+            slope = input("Slope of Peak Exercise ST segment:", type=NUMBER, required=True, placeholder="0.0-2.0")
+            ca = input("Number of major vessels:", type=NUMBER, required=True, placeholder="0 - 4")
+            thalassemia  = radio("Blood disorder (thalassemia)", options=['Normal', 'Fixed Defect', 'Reversible Defect'], required=True)
+            if thalassemia == 'Normal':
+                thal = 1
+            elif thalassemia == 'Fixed Defect':
+                thal = 2
+            elif thalassemia == 'Reversible Defect':
+                thal = 3
+            else:
+                exang = 0
+
             user_data = [[age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal]]
             df = pd.DataFrame(user_data, columns=["age", "sex", "cp", "trestbps",
                                        "chol", "fbs", "restecg", "thalach",
@@ -125,7 +134,7 @@ def predict():
                 put_html('<h4>Details</h4>'),
                 put_text('Age: ' + str(age)),
                 # 'html: <br/>',
-                # put_table([['A', 'B'], ['C', 'D']]),
+                put_table([['Predictor', 'Value'], ['C', 'D']]),
                 put_buttons(['Close Results'], onclick=lambda _: close_popup())
             ])
 
