@@ -37,32 +37,30 @@ def predict():
     img = open('assets/heart-disease-banner.png', 'rb').read()
     with use_scope('scope1', clear=True):
         put_image(img)
-    # put_image("assets\heat-disease-banner.png")
     put_text("")
-    # The width ratio of the left and right code blocks is 2:3, which is equivalent to size='2fr 10px 3fr'
-    # put_row([put_code('A'), None, put_code('B')], size='40% 10px 60%')
-    # put_button("Check for Heart Disease", onclick=lambda: toast("Clicked"), color='success', outline=True)
-    # put_buttons(['edit', 'delete'], onclick=[edit, delete])
-    # choose_onboarding = actions('Heart Disease Prediction', ['Check for Heart Disease'],
-    #                             help_text='')
-    # if choose_onboarding == 'Check for Heart Disease':
-    #     pass
-    # elif choose_onboarding == 'View Dataset':
-    #     webbrowser.open('https://www.kaggle.com/datasets/johnsmith88/heart-disease-dataset')
-    # elif choose_onboarding == 'View Code on Github':
-    #     webbrowser.open('https://github.com/mcabanlit/heart-disease')
-    # else:
-    #     pass
-    # put_link('Github', "https://github.com/mcabanlit/heart-disease")
-    # welcome()
-    from pywebio import start_server
 
-    start = actions('Would you like to start prediction? Still on development mode.', ['Yes', 'No'], help_text='')
+    welcome = input_group('What would you like to do?', [
+        # input('username', type=TEXT, name='username', required=True),
+        # input('password', type=PASSWORD, name='password', required=True),
+        actions('This web app uses Random Forest classifier on more than a thousand datasets on heart-disease in order '
+                'to try and predict if a user has heart disease. Please choose one of the options below to proceed.', [
+            {'label': 'Check for Heart Disease', 'value': 'make_prediction', 'color': 'info'},
+            {'label': 'View Dataset', 'value': 'view_dataset', 'color': 'secondary'},
+            {'label': 'Browse Code', 'value': 'browse_code', 'color': 'dark'},
+        ], name='action', help_text='This model uses factors such as age, sex, chest pain, blood pressure, serum '
+                                    'cholesterol, fasting blood sugar, resting ecg, maximum heart rate, exercise'
+                                    'induced angina and number of major vessels among others.'),
+    ])
+
+    # start = actions('Would you like to start prediction?', ['Yes', 'No'], help_text='')
     # start = radio("Would you like to start prediction?", options=['Yes', 'No'], required=True)
-    if start=='Yes':
-        accept = actions('Do you consent the processing of your data?', ['Yes', 'No'],
-                         help_text='We will be processing your. \n 1. Age')
-        if accept=='Yes':
+    if welcome['action'] =='make_prediction':
+        accept = actions('Do you consent the processing of your data?', [
+            # 'Yes', 'No'
+            {'label': 'Yes, I consent.', 'value': 'i_consent', 'color': 'info'},
+            {'label': 'No, I do not consent.', 'value': 'predict', 'color': 'dark'},
+        ], help_text='We will not be storing any of the values that you have entered after the prediction.')
+        if accept=='i_consent':
             age = input("Age of the patient:", type=NUMBER, required=True)
             gender = radio("Gender", options=['Male', 'Female'], required=True)
             if gender == 'Male':
@@ -137,6 +135,11 @@ def predict():
                 put_table([['Predictor', 'Value'], ['C', 'D']]),
                 put_buttons(['Close Results'], onclick=lambda _: close_popup())
             ])
+    elif welcome['action'] =='view_dataset':
+        webbrowser.open('https://www.kaggle.com/datasets/johnsmith88/heart-disease-dataset')
+    elif welcome['action'] == 'browse_code':
+        webbrowser.open('https://github.com/mcabanlit/heart-disease')
+
 
     predict()
 
