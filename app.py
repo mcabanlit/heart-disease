@@ -183,22 +183,6 @@ def predict():
 
         popup("Ok ra ka dol?", [
             put_html('<a href="https://www.w3schools.com/">Visit W3Schools.com!</a>'),
-            # put_text('Age: ' + str(age)),
-            # 'html: <br/>',
-            put_table([['Predictor', 'Value'],
-                       ['Age', str(age) + " years old"],
-                       ['Sex', gender],
-                       ['Chest Pain Type', chest_pain],
-                       ['Resting Blood Pressure', str(trestbps) + " mmHg"],
-                       ['Cholesterol', str(chol) + " mg/dl"],
-                       ['Fasting Blood Sugar', str(fasting_blood) + ' mg/dl'],
-                       ['Resting ECG', str(resting_ecg)],
-                       ['Maximum Heart Rate', str(thalach)],
-                       ['Exercise induced Angina', exercise_angina],
-                       ['Previous Peak', str(oldpeak)],
-                       ['Slope of Peak', slope_of_peak],
-                       ['No of Major Vessels', str(ca)],
-                       ['Thalassemia', thalassemia]]),
             put_buttons(['Close Results'], onclick=lambda _: close_popup())
         ])
 
