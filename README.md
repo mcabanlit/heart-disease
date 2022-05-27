@@ -1,6 +1,6 @@
 ## Heart Disease Prediction [![gcash donation][1]][2] [![paypal donation][3]][4]
 
-[![license][5]][6] [![python version][7]][8] [![django version][9]][10] [![build][11]][12] 
+[![license][5]][6] [![python version][7]][8] [![pywebio version][9]][10] [![scikit version][11]][12] [![build][13]][14] 
 
 This web app uses Random Forest classifier on more than a thousand datasets on heart-disease in order to try and predict if a user has heart disease. Please choose one of the options below to proceed.
 
@@ -19,5 +19,8 @@ This web app uses Random Forest classifier on more than a thousand datasets on h
 [9]: https://img.shields.io/badge/pywebio-1.6.1-dark
 [10]: https://pywebio.readthedocs.io/en/latest/
 
-[11]: https://img.shields.io/badge/build-passing-green
-[12]: http://heart-disease-pywebio.herokuapp.com/
+[11]: https://img.shields.io/badge/scikit--learn-1.1.1-orange
+[12]: http://scikit-learn.org
+
+[13]: https://img.shields.io/badge/build-passing-green
+[14]: http://heart-disease-pywebio.herokuapp.com/
