@@ -8,7 +8,6 @@ from pywebio import start_server
 import pywebio
 import pickle
 import numpy as np
-import webbrowser
 from pywebio import STATIC_PATH
 import pandas as pd
 
@@ -20,14 +19,6 @@ my_buttons = [{'label': 'Submit', 'value': 'submit', 'type': 'submit', 'color': 
               {'label': 'Reset', 'value': 'reset', 'type': 'reset', 'color': 'secondary'}]
 
 
-def edit():
-    put_text("You click edit button")
-
-
-def delete():
-    put_text("You click delete button")
-
-
 def predict():
     """
     Heart Disease Prediction
@@ -37,10 +28,10 @@ def predict():
     Returns:
             None
     """
-    # put_image('https://images.unsplash.com/photo-1628348070889-cb656235b4eb?ixlib=rb-1.2.1&raw_url=true&q=80&fm=jpg&crop=entropy&cs=tinysrgb&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870')
-    # put_image('https://images.unsplash.com/photo-1623134915837-d2fdb4f59035?ixlib=rb-1.2.1&raw_url=true&q=80&fm=jpg&crop=entropy&cs=tinysrgb&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2071')
-    # img = open('\\assets\\heart-disease-banner.png', 'rb').read()
-    # put_image(img)
+
+    # For cleaning up the data, you may refer to:
+    # https: // towardsdatascience.com / exploratory - data - analysis - on - heart - disease - uci - data - set - ae129e47b323
+
     img = open('assets/heart-disease-banner.png', 'rb').read()
     with use_scope('scope1', clear=True):
         put_image(img)
@@ -93,9 +84,9 @@ def predict():
                                        "dataset contains blood pressure ranging from 94mmHg - 200mmHg")
 
             chol = input("Cholesterol fetched via BMI sensor (in mg/dl):", type=NUMBER, required=True,
-                         placeholder="246", help_text="Displays the serum cholesterol in mg/dl. "
-                                                          "The dataset contains cholesterol values ranging from"
-                                                          "126mg/dl - 564mg/dl.")
+                         placeholder="246", help_text="Requires the serum cholesterol in mg/dl. "
+                                                      "The dataset contains cholesterol values ranging from"
+                                                      "126mg/dl - 564mg/dl.")
 
             fasting_blood = input("Fasting blood sugar (in mg/dl)", type=NUMBER, required=True, placeholder="120",
                                   help_text="The fasting blood sugar of an individual. The model compares the fasting "
@@ -106,45 +97,48 @@ def predict():
 
             resting_ecg = radio("Resting electrocardiographic results:",
                                 options=['Normal', 'ST-T wave normality', 'Left ventricular hypertrophy'],
-                                required=True, value="Normal")
-            if resting_ecg == 'Normal':
-                restecg = 0
-            elif resting_ecg == 'ST-T wave normality':
-                restecg = 1
-            else:
-                restecg = 2
+                                required=True, value="Normal", help_text="The resting electrocardiographic results"
+                                                                         "of the individual which will then be "
+                                                                         "converted into numerical values "
+                                                                         "for the model.")
+            restecg = convert_resting_ecg(resting_ecg)
 
-            thalach = input("Maximum heart rate achieved:", type=NUMBER, required=True, placeholder="71-202")
-            exercise_angina = radio("Exercise induced Angina", options=['Yes', 'No'], required=True, value="Yes")
-            if exercise_angina == 'Yes':
-                exang = 1
-            else:
-                exang = 0
+            thalach = input("Max heart rate achieved:", type=NUMBER, required=True, placeholder="150",
+                            help_text="The maximum heart rate achieved by an individual. The dataset contains"
+                                      "values ranging from 71 up unto 202")
 
-            oldpeak = input("ST depression induced by exercise relative to rest (Previous peak):", type=FLOAT,
-                            required=True, placeholder="0.0 - 6.2")
-            slope_of_peak = radio("Slope of Peak Exercise ST segment:", options=['Upsloping', 'Flat', 'Downsloping'],
-                          required=True, value="Flat")
-            if slope_of_peak == 'Upsloping':
-                slope = 0
-            elif slope_of_peak == 'Flat':
-                slope = 1
-            elif slope_of_peak == 'Downsloping':
-                slope = 2
+            exercise_angina = radio("Exercise induced Angina", options=['Yes', 'No'], required=True, value="Yes",
+                                    help_text="Angina tends to appear during physical activity, emotional stress, "
+                                              "or exposure to cold temperatures, or after big meals. "
+                                              "Symptoms of angina include: pressure, aching, or burning in the "
+                                              "middle of the chest. pressure, aching, or burning in the neck, jaw, "
+                                              "and shoulders (usually the left shoulder) and even down the arm."
+                                              "- Harvard Health")
+            exang = convert_exercise_induced_angina(exercise_angina)
 
-            ca = input("Number of major vessels:", type=NUMBER, required=True, placeholder="0 - 4")
+            oldpeak = input("ST depression induced by exercise relative to rest:", type=FLOAT,
+                            required=True, placeholder="1.1",
+                            help_text="Exercise induced ST segment depression is considered a reliable ECG finding for "
+                                      "the diagnosis of obstructive coronary atherosclerosis. The dataset contains"
+                                      "values up until 6.2.")
+            slope_of_peak = radio("Peak Exercise ST segment:", options=['Upsloping', 'Flat', 'Downsloping'],
+                                  required=True, value="Flat", help_text="Slope of the peak exercise ST segment.")
+            slope = convert_slope_peak(slope_of_peak)
+
+            ca = input("Number of major vessels:", type=NUMBER, required=True, placeholder="1",
+                       help_text="The number of major vessels (0-3).")
+
             thalassemia = radio("Blood disorder (thalassemia)", options=['Normal', 'Fixed Defect', 'Reversible Defect'],
-                                value="Normal", required=True)
-            if thalassemia == 'Normal':
-                thal = 1
-            elif thalassemia == 'Fixed Defect':
-                thal = 2
-            elif thalassemia == 'Reversible Defect':
-                thal = 3
-            else:
-                exang = 0
+                                value="Normal", required=True,
+                                help_text="Presence of a blood disorder called thalassemia. If the value is Normal "
+                                          "then the individual has normal blood flow, if fixed defect then there "
+                                          "is no blood flow in some part of the heart and if it is reversible defect "
+                                          "then it means that a blood flow can be observed but not normal.")
+            thal = convert_thalassemia(thalassemia)
 
-            user_data = [[age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal]]
+
+            user_data = [[age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, 1.1, slope, ca, thal]]
+            # user_data = [[age, sex, cp, trestbps, chol, fbs, restecg, 169, 0, 1.5, 2, 2, 3]]
             df = pd.DataFrame(user_data, columns=["age", "sex", "cp", "trestbps",
                                                   "chol", "fbs", "restecg", "thalach",
                                                   "exang", "oldpeak", "slope", "ca", "thal"])
@@ -201,6 +195,46 @@ def predict():
         ])
 
     predict()
+
+
+def convert_thalassemia(thalassemia):
+    if thalassemia == 'Normal':
+        thal = 1
+    elif thalassemia == 'Fixed Defect':
+        thal = 2
+    elif thalassemia == 'Reversible Defect':
+        thal = 3
+    else:
+        thal = 0
+    return thal
+
+
+def convert_slope_peak(slope_of_peak):
+    if slope_of_peak == 'Upsloping':
+        slope = 0
+    elif slope_of_peak == 'Flat':
+        slope = 1
+    elif slope_of_peak == 'Downsloping':
+        slope = 2
+    return slope
+
+
+def convert_exercise_induced_angina(exercise_angina):
+    if exercise_angina == 'Yes':
+        exang = 1
+    else:
+        exang = 0
+    return exang
+
+
+def convert_resting_ecg(resting_ecg):
+    if resting_ecg == 'Normal':
+        restecg = 0
+    elif resting_ecg == 'ST-T wave normality':
+        restecg = 1
+    else:
+        restecg = 2
+    return restecg
 
 
 def convert_fasting_blood_sugar(fasting_blood):
