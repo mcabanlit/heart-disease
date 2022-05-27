@@ -23,7 +23,9 @@ if a user has heart disease. The dataset was downloaded from [Kaggle](https://ww
   * Thalassemia
 
 
-### Preview
+### Usage
+
+Upon opening the link for this web application, you will be welcomed by three options: (1) try the model, (2) view the dataset and (3) browse/copy the code.
 ![image](https://user-images.githubusercontent.com/102983286/170631602-d831a2f6-ec84-4936-b618-5005756f3091.png)
 ![image](https://user-images.githubusercontent.com/102983286/170631632-dde8a06c-9038-482a-bf79-1e49aa4b5db8.png)
 ![image](https://user-images.githubusercontent.com/102983286/170631649-b857c59e-08b9-4b98-833b-bcd80c0b8d95.png)
