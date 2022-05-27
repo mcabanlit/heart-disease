@@ -2,7 +2,8 @@
 
 [![license][5]][6] [![python version][7]][8] [![pywebio version][9]][10] [![scikit version][11]][12] [![build][13]][14] 
 
-This web app uses Random Forest classifier on more than a thousand datasets on heart-disease in order to try and predict if a user has heart disease. Please choose one of the options below to proceed.
+This web app uses Random Forest classifier on more than a thousand datasets on heart-disease in order to try and predict 
+if a user has heart disease. 
 
 [1]: https://img.shields.io/badge/donate-gcash-green
 [2]: https://drive.google.com/file/d/1JeMx5_S7VBBT-3xO7mV9YOMfESeV3eKa/view
