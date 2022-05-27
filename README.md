@@ -9,17 +9,26 @@ if a user has heart disease. The dataset was downloaded from [Kaggle](https://ww
 * Uses a trained Random Forest Classifier 
 * Uses the following predictors
   * Age
+  * Sex
+  * Chest Pain Type
+  * Resting Blood Pressure
+  * Cholesterol
+  * Fasting Blood Sugar
+  * Resting ECG
+  * Maximum Heart Rate
+  * Exercise Induced Angina
+  * Previous Peak
+  * Slope of Peak
+  * Number of Major Vessels
+  * Thalassemia
+
 
 ### Preview
+![image](https://user-images.githubusercontent.com/102983286/170631602-d831a2f6-ec84-4936-b618-5005756f3091.png)
+![image](https://user-images.githubusercontent.com/102983286/170631632-dde8a06c-9038-482a-bf79-1e49aa4b5db8.png)
+![image](https://user-images.githubusercontent.com/102983286/170631649-b857c59e-08b9-4b98-833b-bcd80c0b8d95.png)
+![image](https://user-images.githubusercontent.com/102983286/170631754-672299e0-9b96-4243-ac07-fe7801ec3e95.png)
 
-
-
-
-![image](https://user-images.githubusercontent.com/102983286/170628457-ee3e8b5e-dc36-4455-8f1d-6884e19563c8.png)
-
-![image](https://user-images.githubusercontent.com/102983286/170630442-532c7c50-6d5d-4550-855c-d8e5c9c9b3c2.png)
-
-![image](https://user-images.githubusercontent.com/102983286/170630398-3461da88-fd80-42bf-8e5c-9bc4d7ca07fd.png)
 
 ### Requirements
 * `PyWebIO>=1.6.1`
