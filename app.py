@@ -179,15 +179,26 @@ def predict():
                 put_buttons(['Close Results'], onclick=lambda _: close_popup())
             ])
     elif welcome['action'] == 'view_dataset':
-        webbrowser.open('https://www.kaggle.com/datasets/johnsmith88/heart-disease-dataset')
+        # webbrowser.open('https://www.kaggle.com/datasets/johnsmith88/heart-disease-dataset')
 
-        popup("Ok ra ka dol?", [
-            put_html('<a href="https://www.w3schools.com/">Visit W3Schools.com!</a>'),
-            put_buttons(['Close Results'], onclick=lambda _: close_popup())
+        popup("Opening an external link ⚠️", [
+            put_text('The heart disease prediction app would like to open the external link below. Please click '
+                     'the hyperlink below if you wish to continue, if not you may close this popup window.'),
+            put_html('<a href="https://www.kaggle.com/datasets/johnsmith88/heart-disease-dataset">Visit Kaggle 📊</a>'),
+            put_text(' '),
+            put_buttons(['Close'], onclick=lambda _: close_popup())
         ])
 
     elif welcome['action'] == 'browse_code':
-        webbrowser.open_new_tab('https://github.com/mcabanlit/heart-disease')
+        # webbrowser.open_new_tab('https://github.com/mcabanlit/heart-disease')
+
+        popup("Opening an external link ⚠️", [
+            put_text('The heart disease prediction app would like to open the external link below. Please click '
+                     'the hyperlink below if you wish to continue, if not you may close this popup window.'),
+            put_html('<a href="https://github.com/mcabanlit/heart-disease">Visit GitHub 🗂️</a>'),
+            put_text(' '),
+            put_buttons(['Close'], onclick=lambda _: close_popup())
+        ])
 
     predict()
 
