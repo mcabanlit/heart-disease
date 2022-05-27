@@ -152,7 +152,7 @@ def predict():
             else:
                 verdict = "Wowers"
 
-            popup(verdict, [
+            popup("Result: " + verdict, [
                 put_html('<h4>The result was based on the following values:</h4>'),
                 # put_text('Age: ' + str(age)),
                 # 'html: <br/>',
