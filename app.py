@@ -146,9 +146,9 @@ def predict():
             # has_diabetes = model.predict([[age, 1, 0, 125, 212, 0, 1, 169, 0, 1.5, 2, 2, 3]])
 
             if has_heart_disease == 1:
-                verdict = "Has Heart Disease"
+                verdict = "Has Heart Disease 🟥"
             elif has_heart_disease == 0:
-                verdict = "No Heart Disease"
+                verdict = "No Heart Disease 🟩"
             else:
                 verdict = "Wowers"
 
