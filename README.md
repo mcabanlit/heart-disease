@@ -54,7 +54,7 @@ Upon opening the link for this web application, you will be welcomed by three op
 [10]: https://pywebio.readthedocs.io/en/latest/
 
 [11]: https://img.shields.io/badge/scikit--learn-1.1.1-orange
-[12]: http://scikit-learn.org
+[12]: https://scikit-learn.org
 
 [13]: https://img.shields.io/badge/build-passing-green
-[14]: http://heart-disease-pywebio.herokuapp.com/
+[14]: https://heart-disease-pywebio.herokuapp.com/
