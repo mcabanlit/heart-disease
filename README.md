@@ -27,8 +27,12 @@ if a user has heart disease. The dataset was downloaded from [Kaggle](https://ww
 
 Upon opening the link for this web application, you will be welcomed by three options: (1) try the model, (2) view the dataset and (3) browse/copy the code.
 ![image](https://user-images.githubusercontent.com/102983286/170631602-d831a2f6-ec84-4936-b618-5005756f3091.png)
+
+The user will then be asked if they consent to the processing of their data. 
 ![image](https://user-images.githubusercontent.com/102983286/170631632-dde8a06c-9038-482a-bf79-1e49aa4b5db8.png)
+The use will then be asked to fill out the values needed to create a prediction such as the one below.
 ![image](https://user-images.githubusercontent.com/102983286/170631649-b857c59e-08b9-4b98-833b-bcd80c0b8d95.png)
+Once all questions are answered, a result containing a summary of the predictors will be shown at the end.
 ![image](https://user-images.githubusercontent.com/102983286/170631754-672299e0-9b96-4243-ac07-fe7801ec3e95.png)
 
 
