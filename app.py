@@ -29,9 +29,6 @@ def predict():
             None
     """
 
-    # For cleaning up the data, you may refer to:
-    # https: // towardsdatascience.com / exploratory - data - analysis - on - heart - disease - uci - data - set - ae129e47b323
-
     img = open('assets/heart-disease-banner.png', 'rb').read()
     with use_scope('scope1', clear=True):
         put_image(img)
